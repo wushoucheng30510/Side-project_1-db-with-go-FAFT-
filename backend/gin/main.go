@@ -16,7 +16,7 @@ var dataResult []result
 const (
 	dbUserName = "test"
 	dbPassword = "Test123456"
-	dbIp       = "10.240.102.12"
+	dbIp       = "xxxxxxxx"
 	dbName     = "FAFT_test"
 	tableName  = "Result"
 )
@@ -32,7 +32,6 @@ type result struct {
 	LogPath    string `json:"logPath"`
 	PassOrFail string `json:"passOrFail"`
 	Reason     string `json:"reason"`
-	Log        string `json:"log"`
 }
 
 func main() {
@@ -66,15 +65,13 @@ func main() {
 		dataResult = nil
 	})
 
-	router.GET("/test2", func(ctx *gin.Context) {
-		ctx.FileAttachment("./log/test.txt", "try.txt")
-	})
+	router.Static("/log", "/home/kevinwu/chromiumos/backend/database/logDB")
 
 	router.Run(":8082")
 }
 
 func SearhData(db *sql.DB) error {
-	query := fmt.Sprint("select id,time,tester,name,board,model,version,logPath,result,reason,log from Result order by id desc")
+	query := fmt.Sprint("select id,time,tester,name,board,model,version,logPath,result,reason from Result order by id desc")
 	rows, err := db.Query(query)
 	if err != nil {
 		return err
@@ -92,9 +89,8 @@ func SearhData(db *sql.DB) error {
 			logPath    string
 			passOrFail string
 			reason     string
-			log        string
 		)
-		rows.Scan(&id, &time, &tester, &name, &board, &model, &version, &logPath, &passOrFail, &reason, &log)
+		rows.Scan(&id, &time, &tester, &name, &board, &model, &version, &logPath, &passOrFail, &reason)
 
 		data := result{
 			Id:         id,
@@ -107,9 +103,21 @@ func SearhData(db *sql.DB) error {
 			LogPath:    logPath,
 			PassOrFail: passOrFail,
 			Reason:     reason,
-			Log:        log,
 		}
 		dataResult = append(dataResult, data)
 	}
 	return nil
 }
+
+// Look in the future
+// func DownloadLicense(ctx *gin.Context) {
+// 	content := "Download file here happliy"
+// 	fileName := "/log/log.txt"
+// 	ctx.Header("Content-Disposition", "attachment; filename="+fileName)
+// 	ctx.Header("Content-Type", "application/text/plain")
+// 	ctx.Header("Accept-Length", fmt.Sprintf("%d", len(content)))
+// 	ctx.Writer.Write([]byte(content))
+// 	ctx.JSON(http.StatusOK, gin.H{
+// 		"msg": "Download file successfully",
+// 	})
+// }
