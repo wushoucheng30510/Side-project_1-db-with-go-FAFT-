@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend/database/dbInfo"
 	"database/sql"
 	"fmt"
 	"log"
@@ -11,12 +12,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var dataResult []result
+// var dataResult []result
 
 const (
 	dbUserName = "test"
 	dbPassword = "Test123456"
-	dbIp       = "xxxxxxxx"
+	dbIp       = "10.240.102.12"
 	dbName     = "FAFT_test"
 	tableName  = "Result"
 )
@@ -33,6 +34,8 @@ type result struct {
 	PassOrFail string `json:"passOrFail"`
 	Reason     string `json:"reason"`
 }
+
+var dataResult []dbInfo.Result
 
 func main() {
 	router := gin.Default()
@@ -51,13 +54,9 @@ func main() {
 	}
 	log.Print("Database is connected")
 
-	err2 := SearhData(db)
-	if err2 != nil {
-		log.Fatal("Failed to search data in table `Result`: ", err)
-	}
-
+	var err2 error
 	router.GET("/test", func(ctx *gin.Context) {
-		err2 := SearhData(db)
+		dataResult, err2 = dbInfo.SearhData(db)
 		if err2 != nil {
 			log.Fatal("Failed to search data in table `Result`: ", err)
 		}
@@ -66,47 +65,7 @@ func main() {
 	})
 
 	router.Static("/log", "/home/kevinwu/chromiumos/backend/database/logDB")
-
 	router.Run(":8082")
-}
-
-func SearhData(db *sql.DB) error {
-	query := fmt.Sprint("select id,time,tester,name,board,model,version,logPath,result,reason from Result order by id desc")
-	rows, err := db.Query(query)
-	if err != nil {
-		return err
-	}
-
-	for rows.Next() {
-		var (
-			id         int
-			time       string
-			tester     string
-			name       string
-			board      string
-			model      string
-			version    string
-			logPath    string
-			passOrFail string
-			reason     string
-		)
-		rows.Scan(&id, &time, &tester, &name, &board, &model, &version, &logPath, &passOrFail, &reason)
-
-		data := result{
-			Id:         id,
-			Time:       time,
-			Tester:     tester,
-			Name:       name,
-			Board:      board,
-			Model:      model,
-			Version:    version,
-			LogPath:    logPath,
-			PassOrFail: passOrFail,
-			Reason:     reason,
-		}
-		dataResult = append(dataResult, data)
-	}
-	return nil
 }
 
 // Look in the future
