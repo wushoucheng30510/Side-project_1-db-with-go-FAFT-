@@ -3,6 +3,7 @@
   import { Router, Route, Link } from "svelte-navigator";
   import ReadMine from "./ReadMine.svelte";
   import Working from "./WorkRelevent.svelte";
+  import Stainless from "./Stainless.svelte";
 </script>
 
 <head>
@@ -29,6 +30,9 @@
     <Route path="home">
       <h1 style="text-align: center; font-size: 60px">FAFT</h1>
       <Working />
+    </Route>
+    <Route path="stainless">
+      <Stainless />
     </Route>
     <Route path="result">
       <h1>FAFT</h1>

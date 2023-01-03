@@ -8,8 +8,8 @@ for i in {1..$2}
 	do
 	for test in $1
 	do
-		rm ~/chromiumos/backend/database/log.txt
-		rm ~/chromiumos/backend/database/result.json
+		rm ~/chromiumos/src/scripts/run/tmp/log.txt
+		rm ~/chromiumos/src/scripts/run/tmp/result.json
 		echo -e "\n\n                       ========> Run test: \033[5m\033[31m$test\033[0m <========\n"
 		echo 
 
@@ -24,11 +24,13 @@ for i in {1..$2}
 		fileHeader=$year$day$hour$minute$second
 		echo $time
 		case=$test
-		path="/home/$user/chromiumos/backend/database"
+		path="/home/$user/chromiumos/src/scripts/run/tmp"
 		
 		tast run -var=servo=localhost:9998 10.240.102.203 firmware.$test | tee -a $path/log.txt 
 		
 		echo -e "\n               =============Finish============\n\n"
+		
+		echo "Start parse the data in shell"
 		log=$(cat $path/log.txt)
 
 		P=$(grep -c "\[ PASS \]" $path/log.txt)
@@ -65,10 +67,9 @@ for i in {1..$2}
 		
 
 		echo -e "\033[31mStart to process data on DB\033[0m\n"
-		cd ~/chromiumos/backend/database
+		cd ~/chromiumos/src/scripts/run/backend/database
 		go run main.go
-		mv $path/log.txt logDB/$fileHeader-$user.txt
-
+		scp $path/log.txt ubuntu@10.240.102.16:/home/ubuntu/logDB/$fileHeader-$user.txt
 	done
 done
 

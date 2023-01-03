@@ -15,10 +15,10 @@ import (
 // var dataResult []result
 
 const (
-	dbUserName = "test"
-	dbPassword = "Test123456"
-	dbIp       = "10.240.102.12"
-	dbName     = "FAFT_test"
+	dbUserName = "kevinwu"
+	dbPassword = "xxxxxxx"
+	dbIp       = "xxxxxxxx"
+	dbName     = "FAFT_TEST"
 	tableName  = "Result"
 )
 
@@ -64,7 +64,7 @@ func main() {
 		dataResult = nil
 	})
 
-	router.Static("/log", "/home/kevinwu/chromiumos/backend/database/logDB")
+	router.Static("/logDB", "/home/ubuntu/backend/logDB")
 	router.Run(":8082")
 }
 

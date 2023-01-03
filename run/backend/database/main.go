@@ -16,16 +16,16 @@ import (
 )
 
 const (
-	dbUserName = "test"
-	dbPassword = "Test123456"
-	dbIp       = "10.240.102.12"
-	dbName     = "FAFT_test"
+	dbUserName = "kevinwu"
+	dbPassword = "CienetFAFT"
+	dbIp       = "10.240.102.16"
+	dbName     = "FAFT_TEST"
 	tableName  = "Result"
 )
 
 func main() {
 	dbInfo.LogPrint("Parse json file")
-	jsonFile := "./result.json"
+	jsonFile := "../../tmp/result.json"
 	content, err := ioutil.ReadFile(jsonFile)
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
@@ -67,12 +67,6 @@ func main() {
 	if err := dbInfo.InsertData(db, tableName, resultData.Time, resultData.Tester, resultData.Name, resultData.Board, resultData.Model, resultData.Version, resultData.LogPath, resultData.Result, failedReason); err != nil {
 		log.Fatal("Failed to insert data to db: ", err)
 	}
-
-	errCleanUp := dbInfo.CleanLog(db)
-	if errCleanUp != nil {
-		log.Fatal("Failed to remove no use log: ", errCleanUp)
-	}
-
 }
 
 func logPreprocess(result string) (string, error) {

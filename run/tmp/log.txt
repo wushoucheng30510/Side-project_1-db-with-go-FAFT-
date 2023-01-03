@@ -1,0 +1,57 @@
+2022-12-29T08:33:43.426905Z Command line: tast run -var=servo=localhost:9998 10.240.102.203 firmware.ECVersion
+2022-12-29T08:33:43.426921Z Tast version: tast-cmd-0.0.1-r1813
+2022-12-29T08:33:43.426926Z Writing results to /tmp/tast/results/20221229-163343
+2022-12-29T08:33:43.427209Z Starting ephemeral devserver at http://127.0.0.1:41065 for remote tests
+2022-12-29T08:33:43.427367Z Connecting to 10.240.102.203
+2022-12-29T08:33:43.535395Z Building remote_test_runner, cros
+2022-12-29T08:33:43.816814Z Built in 281ms
+2022-12-29T08:33:43.825170Z Building local_test_runner, cros
+2022-12-29T08:33:44.329194Z Built in 504ms
+2022-12-29T08:33:44.329221Z Pushing executables to target
+2022-12-29T08:33:44.611718Z Pushed executables in 282ms (sent 0 B)
+2022-12-29T08:33:44.611837Z Sending ListEntities Request to test runner (hops=1)
+2022-12-29T08:33:44.674666Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:45.480573Z Got ListEntities Response from local test runner
+2022-12-29T08:33:45.582635Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:46.626077Z Connecting to 10.240.102.203
+2022-12-29T08:33:46.797764Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:46.798348Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:46.867468Z Unknown CPU information: failed to find SOC: unknown AMD model: 32
+2022-12-29T08:33:46.881335Z Unknown /hardware-properties/is-lid-convertible: cros_config failed (stderr: ""): exit status 1
+2022-12-29T08:33:46.889430Z Warning: failed to stream /var/log/recover_duts/recover_duts.log from DUT to /tmp/tast/results/20221229-163343/streamed/var/log/recover_duts/recover_duts.log: failed to receive streaming data from file /var/log/recover_duts/recover_duts.log: rpc error: code = Unknown desc = file /var/log/recover_duts/recover_duts.log does not exist on the DUT: stat /var/log/recover_duts/recover_duts.log: no such file or directory: failed to read file at the beginning
+2022-12-29T08:33:46.889591Z Fail /var/log/recover_duts/recover_duts.log does not exist; will not retry streaming
+2022-12-29T08:33:47.320097Z Unknown /detachable-base/usbpath: cros_config failed (stderr: ""): exit status 1
+2022-12-29T08:33:47.326507Z Unknown /keyboard/backlight: cros_config failed (stderr: ""): exit status 1
+2022-12-29T08:33:47.333776Z Unknown /power/has-keyboard-backlight: cros_config failed (stderr: ""): exit status 1
+2022-12-29T08:33:47.565545Z Charge control V2 not supported: exit status 1
+2022-12-29T08:33:47.747129Z Modem not found: exit status 1
+2022-12-29T08:33:47.863725Z Unknown /hps: cros_config failed (stderr: ""): exit status 1
+2022-12-29T08:33:47.864166Z failed to load camera feature profile: cannot load feature profile config: open /etc/camera/feature_profile.json: no such file or directory
+2022-12-29T08:33:47.989184Z Primary DUT version: zork-release/R110-15245.0.0
+2022-12-29T08:33:48.051602Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:48.109775Z Sending ListEntities Request to test runner (hops=1)
+2022-12-29T08:33:48.172012Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:49.102472Z Got ListEntities Response from local test runner
+2022-12-29T08:33:49.102658Z Sending ListEntities Request to test runner (hops=0)
+2022-12-29T08:33:49.106800Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:49.150923Z Got ListEntities Response from local test runner
+2022-12-29T08:33:49.150977Z Allowing up to 0 retries
+2022-12-29T08:33:49.181229Z Max GPRC bundle client message size: 8388608
+2022-12-29T08:33:49.244544Z [08:33:49.244] Running rpc server: [env /usr/local/libexec/tast/bundles/local_pushed/cros -rpc]
+2022-12-29T08:33:50.078650Z [08:33:50.078] Connecting to DUT
+2022-12-29T08:33:50.078672Z [08:33:50.078] Connecting to DUT: 10.240.102.203
+2022-12-29T08:33:50.132405Z [08:33:50.132] Opened DUT SSH connection to 10.240.102.203:22
+2022-12-29T08:33:50.137515Z [08:33:50.137] Devserver status: [[http://127.0.0.1:41065 UP]]
+2022-12-29T08:33:50.160673Z [08:33:50.160] Found 0 external linked data file(s), need to download 0
+2022-12-29T08:33:50.161614Z [08:33:50.161] Devserver status: [[http://127.0.0.1:41065 UP]]
+2022-12-29T08:33:50.184099Z [08:33:50.184] Found 0 external linked data file(s), need to download 0
+2022-12-29T08:33:50.184843Z[1;34m Started test firmware.ECVersion [0m
+2022-12-29T08:33:50.376522Z [08:33:50.375] EC version: vilboz_v2.0.5682-fb3ce04852
+2022-12-29T08:33:50.722288Z[1;34m Completed test firmware.ECVersion [0m in 537ms with 0 error(s)
+2022-12-29T08:33:50.850963Z [08:33:50.721] Disconnecting from DUT
+2022-12-29T08:33:50.851055Z [08:33:50.721] Closing DUT SSH connection to 10.240.102.203:22
+2022-12-29T08:33:51.074523Z Max GPRC runner client message size: 8388608
+2022-12-29T08:33:51.992036Z --------------------------------------------------------------------------------
+2022-12-29T08:33:51.992059Z firmware.ECVersion[1;32m [ PASS ] [0m
+2022-12-29T08:33:51.992068Z --------------------------------------------------------------------------------
+2022-12-29T08:33:51.992073Z Results saved to /tmp/tast/results/20221229-163343

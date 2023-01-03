@@ -1,5 +1,4 @@
 <main>
-    This page is for Kevin to use for work
     <br />
     <ls>
         <a
