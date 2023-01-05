@@ -1,0 +1,1 @@
+drop table Stainless_Result;

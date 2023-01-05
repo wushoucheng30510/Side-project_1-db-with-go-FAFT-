@@ -17,8 +17,8 @@ import (
 
 const (
 	dbUserName = "kevinwu"
-	dbPassword = "CienetFAFT"
-	dbIp       = "10.240.102.16"
+	dbPassword = "xxxxxxxx"
+	dbIp       = "xxxxxxxx"
 	dbName     = "FAFT_TEST"
 	tableName  = "Result"
 )

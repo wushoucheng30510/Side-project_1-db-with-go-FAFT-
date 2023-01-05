@@ -16,8 +16,8 @@ import (
 
 const (
 	dbUserName = "kevinwu"
-	dbPassword = "xxxxxxx"
-	dbIp       = "xxxxxxxx"
+	dbPassword = "CienetFAFT"
+	dbIp       = "10.240.102.16"
 	dbName     = "FAFT_TEST"
 	tableName  = "Result"
 )
@@ -54,6 +54,7 @@ func main() {
 	}
 	log.Print("Database is connected")
 
+	// Search data for testing results
 	var err2 error
 	router.GET("/test", func(ctx *gin.Context) {
 		dataResult, err2 = dbInfo.SearhData(db)
@@ -64,19 +65,21 @@ func main() {
 		dataResult = nil
 	})
 
+	// Upload csv files
+	router.POST("/uploadCSV", func(c *gin.Context) {
+		// get file from form input name 'file'
+		file, _ := c.FormFile("stainlessData")
+
+		log.Println(file.Filename)
+		if err := dbInfo.ValidCsv(file.Filename); err != nil {
+			c.String(http.StatusOK, "Error happend: ", err)
+		} else {
+			c.SaveUploadedFile(file, "stainless/"+file.Filename)
+			c.String(http.StatusOK, "file: %s", file.Filename)
+		}
+
+	})
+
 	router.Static("/logDB", "/home/ubuntu/backend/logDB")
 	router.Run(":8082")
 }
-
-// Look in the future
-// func DownloadLicense(ctx *gin.Context) {
-// 	content := "Download file here happliy"
-// 	fileName := "/log/log.txt"
-// 	ctx.Header("Content-Disposition", "attachment; filename="+fileName)
-// 	ctx.Header("Content-Type", "application/text/plain")
-// 	ctx.Header("Accept-Length", fmt.Sprintf("%d", len(content)))
-// 	ctx.Writer.Write([]byte(content))
-// 	ctx.JSON(http.StatusOK, gin.H{
-// 		"msg": "Download file successfully",
-// 	})
-// }

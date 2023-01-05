@@ -47,29 +47,33 @@ for i in {1..$2}
 			PorF="Pass"
 		fi
 
-		dutVersion=$(cat $path/log.txt | grep "Primary DUT version" | cut -d ' ' -f5)
-		logPath=$(cat $path/log.txt | grep Writing | cut -d ' ' -f5)
-		model=$(cat "/home/$user/chromiumos/chroot$logPath/dut-info.txt" | grep model | cut -d '"' -f2)
-		board=$(echo "$dutVersion" | cut -d '/' -f1 | cut -d '-' -f1)
-		version=$(echo "$dutVersion" | cut -d '/' -f2)
+		if [ $PorF == "Pass" ] || [ $PorF == "Fail" ]
+		then 
 
-		echo "{
-		\"time\":\"$time\",
-		\"tester\":\"$user\",
+			dutVersion=$(cat $path/log.txt | grep "Primary DUT version" | cut -d ' ' -f5)
+			logPath=$(cat $path/log.txt | grep Writing | cut -d ' ' -f5)
+			model=$(cat "/home/$user/chromiumos/chroot$logPath/dut-info.txt" | grep model | cut -d '"' -f2)
+			board=$(echo "$dutVersion" | cut -d '/' -f1 | cut -d '-' -f1)
+			version=$(echo "$dutVersion" | cut -d '/' -f2)
+
+			echo "{
+			\"time\":\"$time\",
+			\"tester\":\"$user\",
 			\"name\":\"$test\",
-		\"board\":\"$board\",
-		\"model\":\"$model\",
-		\"version\":\"$version\",
-		\"logPath\":\"$fileHeader-$user.txt\",
-		\"result\":\"$PorF\"
+			\"board\":\"$board\",
+			\"model\":\"$model\",
+			\"version\":\"$version\",
+			\"logPath\":\"$fileHeader-$user.txt\",
+			\"result\":\"$PorF\"
 
 			}" > $path/result.json
 		
 
-		echo -e "\033[31mStart to process data on DB\033[0m\n"
-		cd ~/chromiumos/src/scripts/run/backend/database
-		go run main.go
-		scp $path/log.txt ubuntu@10.240.102.16:/home/ubuntu/logDB/$fileHeader-$user.txt
+			echo -e "\033[31mStart to process data on DB\033[0m\n"
+			cd ~/chromiumos/src/scripts/run/backend/database
+			go run main.go
+			scp $path/log.txt ubuntu@10.240.102.16:/home/ubuntu/backend/logDB/$fileHeader-$user.txt
+		fi
 	done
 done
 

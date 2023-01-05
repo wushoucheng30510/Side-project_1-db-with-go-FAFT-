@@ -1,0 +1,1 @@
+create table Stainless_Result (id INT(6) AUTO_INCREMENT PRIMARY KEY,time TIMESTAMP,duration varchar(10),suite varchar(30),board varchar(20),model varchar(20), buildVersion varchar(20),host varchar(40),testName varchar(60),status varchar(10),reason varchar(255),firmwareROVersion varchar(50),firmwareRWVersion varchar(50));
